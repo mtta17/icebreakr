@@ -28,8 +28,9 @@
 # **Output --------------------------------------------------------------------
 #
 # **Dependencies --------------------------------------------------------------
-#
+# readr
 
+#' @export
 read_clippy <- function(expected_result = "df"){
     if(expected_result == "df"){
         readr::read_delim(clipboard(), delim = "\t")
@@ -40,6 +41,7 @@ read_clippy <- function(expected_result = "df"){
     }
 }
 
+#' @export
 write_clippy <- function(df, col_names = T){
     df %>%
         write.table("clipboard", sep = "\t", row.names = F, col.names = col_names, na = "")

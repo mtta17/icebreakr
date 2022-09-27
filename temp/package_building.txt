@@ -1,0 +1,6 @@
+https://tinyheero.github.io/jekyll/update/2015/07/26/making-your-first-R-package.html
+
+devtools::document() # generate markdown files for ?function documentation
+devtools::use_data() # bakes the specified dataset into the package
+usethat::use_vignette("introduction")
+> system.file("extdata", "amogus.txt", package = "icebreakr")

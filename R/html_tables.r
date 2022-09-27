@@ -23,6 +23,7 @@
 # **Dependencies --------------------------------------------------------------
 # DT, htmltools
 
+#' @export
 fancy_table <- function(df, title = quote()){
     df %>%
         DT::datatable(class = 'display compact nowrap',

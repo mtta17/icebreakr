@@ -37,6 +37,7 @@
 # DBI, dplyr
 
 ###############################################################################
+#' @export
 db_connect <- function(connection){
     # dictionary of database names and their connection details
     db_lookup <- dplyr::tibble(
@@ -98,6 +99,7 @@ db_connect <- function(connection){
 } # end db_connect()
 
 ###############################################################################
+#' @export
 query <- function(connection, sql_query, df_type = "tibble"){
     if(df_type == "dt"){
         data.table::setDT(DBI::dbGetQuery(connection, sql_query))
