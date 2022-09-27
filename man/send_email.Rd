@@ -13,17 +13,20 @@ send_email(to, subject, body, attachment = "", cc = "", bcc = "", encrypt = F)
 
 \item{body}{String. This is an HTML body and will display any HTML that is embedded within the string}
 
-\item{attachment}{= "" String vector to the paths of files to be attached}
+\item{attachment}{String vector to the paths of files to be attached. Defaults to ""}
 
-\item{cc}{= "" String of recipients to cc. Multiple email addresses should be separated by semi-colons}
+\item{cc}{String of recipients to cc. Multiple email addresses should be separated by semi-colons. Defaults to ""}
 
-\item{bcc}{= "" String of recipients to bcc. Multiple email addresses should be separated by semi-colons}
+\item{bcc}{String of recipients to bcc. Multiple email addresses should be separated by semi-colons. Defaults to ""}
 
-\item{encrypt}{= F Bool. If true, precedes the subject with "$ecure" to encrypt and send the message via the DataMotion}
+\item{encrypt}{Bool. If true, precedes the subject with "$ecure" to encrypt and send the message via the DataMotion Outlook plug-in. Defaults to F}
 }
 \value{
 Sends an email via Outlook; no returns in-session
 }
 \description{
 Email is sent from the Microsoft domain that is presently signed in on your computer's desktop Outlook application.
+}
+\examples{
+send_email(to = "mtta17@gmail.com", subject = "You suck!", body = "Honestly your R package is trash. Cheers")
 }

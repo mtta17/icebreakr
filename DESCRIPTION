@@ -1,6 +1,6 @@
 Package: icebreakr
 Title: Common Utilities To Break The Ice
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: 
     person(given = "Matt",
            family = "Simmons",
@@ -19,7 +19,11 @@ Imports:
     dplyr, 
     DT, 
     htmltools, 
+    odbc, 
     purrr, 
     RDCOMClient, 
-    readr, 
-    tidyverse
+    tibble, 
+    readr
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

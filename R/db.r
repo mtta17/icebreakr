@@ -1,42 +1,27 @@
-# db_connect.r
+# db.r
+# mtta17@gmail.com
 #
-# **Description ---------------------------------------------------------------
-# Functions to connect to and query IDOH databases.
-# author - mtta17@gmail.com
+##### db_connect() #####
 #
-# ***********************************************
-# **************** thoughts *********************
-# ***********************************************
-#
-# currently supports SQL server and oracle
-# would like to see about integrating other DBMSs
-#
-# ***********************************************
-#
-# db_connect()
-# query()
-#
-# db_connect() ################################################################
-# **Arguments -----------------------------------------------------------------
-# connection		string of the short-hand name of the desired database to which to connect
-# **Output --------------------------------------------------------------------
-# Returns a connection object
-# **Dependencies --------------------------------------------------------------
-# DBI, odbc, dplyr, keyring
-# **Note
-# Keep in mind that the appropriate drivers must be installed on the user's machine in order to interface with each of the DBMSs with R. For example, my SQL Server driver came pre-installed, but I needed to ask IOT to install the Oracle "Oracle in OraClient12Home1" driver for me.
-#
-# query() #####################################################################
-# **Arguments -----------------------------------------------------------------
-# connection		string of the short-hand name of the desired database to which to connect
-# sql_query			string of the desired SQL query
-# df_type			string of desired df output. defaults to a tibble. "dt" converts to a data.table
-# **Output --------------------------------------------------------------------
-# Returns the query results from the database.
-# **Dependencies --------------------------------------------------------------
-# DBI, dplyr
-
-###############################################################################
+#' Wrappers to easily facilitate connecting to and querying from databases.
+#'
+#' Database connections are saved as 'con' objects to your environment with db_connect() (the argument is a pre-determined short-hand so that you do not need to pass entire server strings). When querying, all you need to do is reference the 'con', and pass the SQL syntax! Make sure to assign your query output to a variable so that you can continue to manipulate it in-session.
+#'
+#' Currently, this function skeleton is catered to accommodate IDOH servers. The supported short-hand database names are as follows:
+#'
+#' | short_hand | server_string |
+#' | ---------- | ------------- |
+#' | a          | x             |
+#' | b          | y             |
+#' | c          | z             |
+#' | d          | w             |
+#' | e          | v             |
+#'
+#' For servers requiring authentication (e.g. Oracle), you will need to set up `keyring` tokens prior to using these functions. Simply enter `keyring::key_set(service, username)` where `service` is the short-hand name of the desired database. You will then be prompted to enter your password. See `?keyring::key_set` for more information.
+#'
+#' @param connection String of the short-hand name of the desired database to which to connect
+#' @return Connection object
+#' @examples db_connect("my_fav_database")
 #' @export
 db_connect <- function(connection){
     # dictionary of database names and their connection details
@@ -98,13 +83,23 @@ db_connect <- function(connection){
     } # end else
 } # end db_connect()
 
-###############################################################################
+##### query() #####
+#
+#' Convenient function to query a database connection.
+#'
+#' Use an in-session database connection, such as from `icebreakr::db_connect` or another DBI/odbc method, to pull query results directly into your R session straight from the database.
+#'
+#' @param con R connection object created using `icebreakr::db_connect()` or DBI/odbc
+#' @param sql_query String of your SQL query
+#' @param df_type String of the desired df data type output. Defaults to a tibble. "dt" converts to a data.table
+#' @return Tibble of the query results from the database
+#' @examples x <- query(con, "select top 1000 * from my_fav_table")
 #' @export
-query <- function(connection, sql_query, df_type = "tibble"){
+query <- function(con, sql_query, df_type = "tibble"){
     if(df_type == "dt"){
-        data.table::setDT(DBI::dbGetQuery(connection, sql_query))
+        data.table::setDT(DBI::dbGetQuery(con, sql_query))
     }
     else{
-        dplyr::as_tibble(DBI::dbGetQuery(connection, sql_query))
+        dplyr::as_tibble(DBI::dbGetQuery(con, sql_query))
     }
 } # end query()

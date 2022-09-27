@@ -1,17 +1,14 @@
 # operators.r
+# mtta17@gmail.com
 #
-# **Description ---------------------------------------------------------------
-# Additional user-defined operators.
-# author - mtta17@gmail.com
+##### %notin% #####
 #
-# %notin%
-#
-# %notin% #####################################################################
-# **Arguments -----------------------------------------------------------------
-# NA
-# **Output --------------------------------------------------------------------
-# NA
-# **Dependencies --------------------------------------------------------------
-# NA
-
+#' Negation of %in% operator.
+#'
+#' Yeah, that's really all it is. This seems way more intuitive
+#'
+#' @return The complement of %in%
+#' @examples 4 %notin% c(1, 2, 3)
+#' [1] TRUE
+#' @export
 `%notin%` <- Negate(`%in%`)
