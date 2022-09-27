@@ -1,33 +1,19 @@
 # email.r
+# mtta17@gmail.com
 #
-# **Description ---------------------------------------------------------------
-# Send an Outlook email.
-# author - mtta17@gmail.com
-#
-# ***********************************************
-# **************** thoughts *********************
-# ***********************************************
-#
-# would be cool to add support for gmail too
-#
-# ***********************************************
-#
-# send_email()
-#
-# send_email() ################################################################
-# **Arguments -----------------------------------------------------------------
-# to				  string of email recipients. multiple email addresses should be separated by semi-colons
-# subject             string of the subject line message
-# body                string. This is an HTML body and will display any HTML that is embedded within the string
-# attachment = ""     string vector to the paths of files to be attached
-# cc = ""             string of recipients to cc. multiple email addresses should be separated by semi-colons
-# bcc = ""            string of recipients to bcc. multiple email addresses should be separated by semi-colons
-# encrypt = F         bool. If true, precedes the subject with "$ecure" to encrypt and send the message via the DataMotion Outlook plugin
-# **Output --------------------------------------------------------------------
-# Sends an email via Outlook; no returns in-session
-# **Dependencies --------------------------------------------------------------
-# RDCOMClient, purrr
-
+#' Send an Outlook Email
+#'
+#' Email is sent from the Microsoft domain that is presently signed in on your computer's desktop Outlook application.
+#'
+#' @param to String of email recipients. Multiple email addresses should be separated by semi-colons
+#' @param subject String of the subject line message
+#' @param body String. This is an HTML body and will display any HTML that is embedded within the string
+#' @param attachment = "" String vector to the paths of files to be attached
+#' @param cc = "" String of recipients to cc. Multiple email addresses should be separated by semi-colons
+#' @param bcc = "" String of recipients to bcc. Multiple email addresses should be separated by semi-colons
+#' @param encrypt = F Bool. If true, precedes the subject with "$ecure" to encrypt and send the message via the DataMotion
+#' @return Sends an email via Outlook; no returns in-session
+#' @export
 send_email <- function(to, subject, body, attachment = "", cc = "", bcc = "", encrypt = F){
     # Open Outlook
     Outlook <- RDCOMClient::COMCreate("Outlook.Application")
@@ -48,4 +34,6 @@ send_email <- function(to, subject, body, attachment = "", cc = "", bcc = "", en
     Email$Send()
     # Close Outlook, clear the message
     rm(Outlook, Email)
-} # end send_email()
+} # send_email()
+
+# would be cool to add gmail support too
