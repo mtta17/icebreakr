@@ -1,0 +1,21 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+mpg %>% 
+    ggplot(aes(cty, hwy)) + 
+    geom_point(aes(color = class), position = "jitter", alpha = .5) + 
+    geom_smooth(method = "lm", color = "grey", linetype = "dashed") + 
+    theme_minimal() + 
+    labs(title = "City v Highway Mileage", 
+         x = "City Miles Per Gallon (MPG)", 
+         y = "Highway Miles Per Gallon (MPG)", 
+         caption = "Source: tidyverse::mpg")
+```
+
